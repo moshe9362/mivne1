@@ -100,7 +100,6 @@ def get_rad(G):
 
 def triangle_check(G):
     triangle = [circle for circle in nx.cycle_basis(G) if len(circle) == 3]
-    print triangle
     for item in triangle:
         a = float(str(G.get_edge_data(item[0],item[1]))[11:-1])
         b = float(str(G.get_edge_data(item[1],item[2]))[11:-1])
@@ -133,29 +132,25 @@ init_file_path = ''
 test_file_path = ''
 
 for o, a in opts:
-    print o
-    print a
     if o in ("-h", "--help"):
         usage()
         sys.exit()
     elif o in ("-i", "--init-file"):
         if (os.path.isfile(a)):
-            print "input file:" + a
             init_file_path = a
         else:
-            print a + "file not found"
+            print a + "input file not found"
             exit(1)
     elif o in ("-t", "--test-file"):
         if (os.path.isfile(a)):
-            print "test file:" + a
-            init_file_path = a
+            test_file_path = a
         else:
-            print a + "file not found"
+            print a + "test file not found"
             exit(1)
     else:
         assert False, "unhandled option"
 
 
 
-GG=init_graph_from_file("C:\Users\dudub\Desktop\G0.txt")
-test_graph(GG, "C:\Users\dudub\Desktop\T0.txt")
+GG=init_graph_from_file(init_file_path)
+test_graph(GG,test_file_path)
