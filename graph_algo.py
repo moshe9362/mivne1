@@ -99,7 +99,7 @@ def get_rad(G):
     return nx.radius(G)
 
 def triangle_check(G):
-    triangle = [circle for circle in nx.cycle_basis(G) if len(circle) == 3]
+    triangle = [circle for circle in nx.cycle_basis(G)]
     for item in triangle:
         a = float(str(G.get_edge_data(item[0],item[1]))[11:-1])
         b = float(str(G.get_edge_data(item[1],item[2]))[11:-1])
