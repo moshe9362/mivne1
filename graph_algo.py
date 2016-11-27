@@ -87,10 +87,38 @@ class grpahAlgo:
         return nx.dijkstra_path(self.G, source=int(_source), target=int(_dest), weight="weight")
 
     def get_diamiter(self):
-        return nx.diameter(self.G)
+        max = 0
+        max1 = 0
+        max2 = 0
+
+        all_pairs = nx.all_pairs_dijkstra_path_length(self.G)
+        for z in all_pairs:
+            for u in all_pairs[z]:
+                if all_pairs[z][u] >= max:
+                    if all_pairs[z][u] != 0:
+                        max = all_pairs[z][u]
+                        max1 = z
+                        max2 = u
+
+        return max
+
+
 
     def get_rad(self):
-        return nx.radius(self.G)
+        min = float("inf")
+        min1 = 0
+        min2 = 0
+
+        all_pairs = nx.all_pairs_dijkstra_path_length(self.G)
+        for z in all_pairs:
+            for u in all_pairs[z]:
+                if all_pairs[z][u] <= min:
+                    if all_pairs[z][u] != 0:
+                        min = all_pairs[z][u]
+                        min1 = z
+                        min2 = u
+
+        return min
 
     def triangle_check(self):
         triangle = [circle for circle in nx.cycle_basis(self.G)]
