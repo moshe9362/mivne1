@@ -105,12 +105,8 @@ def triangle_check(G):
         b = float(str(G.get_edge_data(item[1],item[2]))[11:-1])
         c = float(str(G.get_edge_data(item[2],item[0]))[11:-1])
 
-        if (a>b+c):
-            return False
-        if (b>a+c):
-            return False
-        if (c>a+b):
-            return False
+        if ((a>b+c) or (b>a+c) or (c>a+b)):
+            return false
 
     return True
 
