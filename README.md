@@ -57,7 +57,7 @@ clone/download latest master from github and use the *graph_algo_helper.py* to l
 19,59,3,20,21,22 3112.15
 29,89,3,30,31,32 4244.71
 23,89,2,24,25,26 4476.36
-20
+
 Graph: |V|=101, |E|=490, TIE=False, Radius:10, Diameter:20 Runtime:0.0635687810385
 
 ```
