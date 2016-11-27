@@ -106,8 +106,7 @@ def triangle_check(G):
         c = float(str(G.get_edge_data(item[2],item[0]))[11:-1])
 
         if ((a>b+c) or (b>a+c) or (c>a+b)):
-            return false
-
+            return False
     return True
 
 def print_graph(G):
