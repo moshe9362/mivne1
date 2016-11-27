@@ -43,7 +43,7 @@ class grpahAlgo:
         del lines[0:1]
 
         for line in lines:
-            line_args = line.split(',')
+            line_args = line.split()
             if (str(line_args[0]) == "info"):
                 print("Graph: |V|=" + str(self.G.number_of_nodes()) +
                        ", |E|=" + str(self.G.number_of_edges())     +
