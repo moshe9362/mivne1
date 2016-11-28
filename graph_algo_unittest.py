@@ -27,6 +27,13 @@ def checkNumberOfNodes():
 def checkShortestPath():
     return G_test.get_path_length(2,3) == 5.6
 
+def checkRadius():
+    return G_test.get_rad2() == 2
+
+def checkDiameter():
+    return G_test.get_diameter2() == 2
+
+
 # Here's our "unit tests".
 class GraphAlgoUnitTests(unittest.TestCase):
 
@@ -38,8 +45,15 @@ class GraphAlgoUnitTests(unittest.TestCase):
     def testNodes(self):
         self.failUnless(checkNumberOfNodes())
 
-    def testPath(self):
+    def testShortestPath(self):
         self.failUnless(checkShortestPath())
+
+    def testRad(self):
+        self.failUnless(checkRadius())
+
+    def testDiam(self):
+        self.failUnless(checkDiameter())
+
 
 def main():
     unittest.main()
