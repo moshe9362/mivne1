@@ -23,8 +23,15 @@ Create a self containet pyhton class that will allow basic Undirrected Postitive
 
 clone/download latest master from github and use the *graph_algo_helper.py* to load and check your graph from a given input and test file:
 
-```bash
-# python graph_algo_helper.py --init-file <init_file_path> --test-file <test_file_path>
+```sh
+# python praph_algo_helper.py -h
+Command line usage:
+
+    -h, --help          This help screen
+    -i, --init-file     path for Graph init file
+    -t, --test-file     path for Graph test file
+    -w, --weight        return Radius and Diameter with weights
+
 
 ```
 
