@@ -7,13 +7,14 @@ def usage():
     print """Command line usage:
 
     -h, --help          This help screen
-    -i, --init-file     Use CM (config management) default values
-    -t, --test-file       Don't test after installation
+    -i, --init-file     path for Graph init file
+    -t, --test-file     path for Graph test file
+    -w, --weight        return Radius and Diameter with weights
 
     """
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hi:t:", ["help", "init-file=", "test-file="])
+    opts, args = getopt.getopt(sys.argv[1:], "hi:t:w", ["help", "init-file=", "test-file=", "weight"])
 except getopt.GetoptError as err:
     # print help information and exit:
     print str(err) # will print something like "option -a not recognized"
@@ -22,6 +23,7 @@ except getopt.GetoptError as err:
 
 init_file_path = ''
 test_file_path = ''
+use_weight = False
 
 for o, a in opts:
     if o in ("-h", "--help"):
@@ -39,11 +41,11 @@ for o, a in opts:
         else:
             print a + "test file not found"
             exit(1)
+    elif o in ("-w", "--weight"):
+        use_weight = True
     else:
         assert False, "unhandled option"
 
 GG = grpahAlgo()
-#GG.init_graph_from_file(init_file_path)
-#GG.test_graph(test_file_path)
-GG.init_graph_from_file("C:\\Users\\dudub\\Downloads\\test2_input.txt")
-GG.test_graph("C:\\Users\\dudub\\Downloads\\test1_Ex1_run.txt")
+GG.init_graph_from_file(init_file_path)
+GG.test_graph(test_file_path,use_weight)
