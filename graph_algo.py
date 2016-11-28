@@ -1,4 +1,4 @@
-# Graph Algorithms using Python Networkx
+# Graph Algorithms using Python Networkx library
 # Application Structures, Assignment 1, Semester A
 # Authors: Dudu Bistrov, Adiel Amshalom, Moshe Margaliot
 # 21, November 2016
@@ -8,11 +8,17 @@ import time
 
 
 class grpahAlgo:
-
     G = ''
+    ec = None
 
     def __init__(self):
         self.G = nx.Graph()
+
+    # read the file and initiales the Graph
+    # the file format is givven as:
+    # Nodes
+    # Edges
+    # source destination weight
 
     def init_graph_from_file(self,file):
 
@@ -32,24 +38,31 @@ class grpahAlgo:
             self.G.add_weighted_edges_from([(_node_i, _node_j, _weight), ])
 
         init_file_object.close()
+
         return self.G
 
-    def test_graph(self,file):
+
+
+    # print all Outputs
+    def test_graph(self,file,uw):
 
         start = time.clock()
         test_file_object = open(file, 'r')
         lines = test_file_object.readlines()
 
+        if (uw == True):
+            self.set_ec()
+
         del lines[0:1]
 
         for line in lines:
             line_args = line.split()
-            if (str(line_args[0]) == "info"):
-                print("Graph: |V|=" + str(self.G.number_of_nodes()) +
-                       ", |E|=" + str(self.G.number_of_edges())     +
+            if (str(line_args[0]).strip('\n') == "info"):
+                print("Graph: |V|=" + str(self.get_num_of_nodes()) +
+                       ", |E|=" + str(self.get_num_of_edges())     +
                        ", TIE=" + str(self.triangle_check())        +
-                       ", Radius:" + str(self.get_rad())            +
-                       ", Diameter:" + str(self.get_diamiter())     +
+                       ", Radius:" + str(self.get_rad2())            +
+                       ", Diameter:" + str(self.get_diameter2())     +
                        ", Runtime:" + str(time.clock()-start))
 
             elif (int(line_args[2]) == 0):
@@ -71,57 +84,43 @@ class grpahAlgo:
                 for list in orig_list:
                     self.G.add_weighted_edges_from([(int(list[0]), int(list[1]), float(list[2])), ])
 
+    # calculate the all pairs and put it at array
+    def set_ec(self):
+        start = time.clock()
+        self.ec = nx.eccentricity(self.G, sp=nx.all_pairs_dijkstra_path_length(self.G))
+        print str(time.clock()-start)
 
-    def get_blacklist_graph(self,bl_list):
-        bl_G=nx.Graph(self.G);
-
-        for item in bl_list:
-            bl_G.remove_node(int(item))
-
-        return bl_G
-
+    # get minimal path
     def get_path_length(self,_source,_dest):
         return nx.dijkstra_path_length(self.G, source=int(_source), target=int(_dest), weight="weight")
 
     def get_path(self,_source,_dest):
         return nx.dijkstra_path(self.G, source=int(_source), target=int(_dest), weight="weight")
 
-    def get_diamiter(self):
-        max = 0
-        max1 = 0
-        max2 = 0
+    def get_num_of_edges(self):
+        return self.G.number_of_edges()
 
-        all_pairs = nx.all_pairs_dijkstra_path_length(self.G)
-        for z in all_pairs:
-            for u in all_pairs[z]:
-                if all_pairs[z][u] >= max:
-                    if all_pairs[z][u] != 0:
-                        max = all_pairs[z][u]
-                        max1 = z
-                        max2 = u
+    def get_num_of_nodes(self):
+        return self.G.number_of_nodes()
 
-        return max
+    def get_diameter2(self):
+        if (self.ec == None):
+            return nx.diameter(self.G)
+        else:
+            return nx.diameter(self.G,self.ec)
 
+    def get_rad2(self):
+        if (self.ec == None):
+            return nx.radius(self.G)
+        else:
+            return nx.radius(self.G,self.ec)
 
-
-    def get_rad(self):
-        min = float("inf")
-        min1 = 0
-        min2 = 0
-
-        all_pairs = nx.all_pairs_dijkstra_path_length(self.G)
-        for z in all_pairs:
-            for u in all_pairs[z]:
-                if all_pairs[z][u] <= min:
-                    if all_pairs[z][u] != 0:
-                        min = all_pairs[z][u]
-                        min1 = z
-                        min2 = u
-
-        return min
+    # Check if graph upholds the Triangle inequality condition
+    # return True if all triangles upholds the Triangle inequality condition
+    # otherwise return False
 
     def triangle_check(self):
-        triangle = [circle for circle in nx.cycle_basis(self.G)]
+        triangle = [circle for circle in nx.cycle_basis(self.G) if len(circle)==3]
         for item in triangle:
             a = float(str(self.G.get_edge_data(item[0],item[1]))[11:-1])
             b = float(str(self.G.get_edge_data(item[1],item[2]))[11:-1])
@@ -130,6 +129,7 @@ class grpahAlgo:
             if ((a>b+c) or (b>a+c) or (c>a+b)):
                 return False
         return True
+
 
     def print_graph(self):
         for n, nbrs in self.G.adjacency_iter():

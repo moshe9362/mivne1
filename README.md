@@ -23,8 +23,15 @@ Create a self containet pyhton class that will allow basic Undirrected Postitive
 
 clone/download latest master from github and use the *graph_algo_helper.py* to load and check your graph from a given input and test file:
 
-```bash
-# python graph_algo_helper.py --init-file <init_file_path> --test-file <test_file_path>
+```sh
+# python praph_algo_helper.py -h
+Command line usage:
+
+    -h, --help          This help screen
+    -i, --init-file     path for Graph init file
+    -t, --test-file     path for Graph test file
+    -w, --weight        return Radius and Diameter with weights
+
 
 ```
 
@@ -61,3 +68,31 @@ clone/download latest master from github and use the *graph_algo_helper.py* to l
 Graph: |V|=101, |E|=490, TIE=False, Radius:10, Diameter:20 Runtime:0.0635687810385
 
 ```
+
+### Unit Tests
+
+graph_algo_unittest.py is responsible for running short sanity to ensure basic graph functionality is in place. 
+Currently there are 3 unit tests:
+0. init graph with some values
+1. test if number of nodes matches the correct value
+2. test if number of edges matches the correct value
+3. test if sortest path from node A to node B matches the correct value
+
+#### usage:
+```cmd
+> python graph_algo_unittest.py -v
+```
+
+#### Expected UnitTest Output
+
+```cmd
+testEdges (__main__.GraphAlgoUnitTests) ... ok
+testNodes (__main__.GraphAlgoUnitTests) ... ok
+testPath (__main__.GraphAlgoUnitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK
+```
+
