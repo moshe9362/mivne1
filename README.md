@@ -61,3 +61,31 @@ clone/download latest master from github and use the *graph_algo_helper.py* to l
 Graph: |V|=101, |E|=490, TIE=False, Radius:10, Diameter:20 Runtime:0.0635687810385
 
 ```
+
+### Unit Tests
+
+graph_algo_unittest.py is responsible for running short sanity to ensure basic graph functionality is in place. 
+Currently there are 3 unit tests:
+0. init graph with some values
+1. test if number of nodes matches the correct value
+2. test if number of edges matches the correct value
+3. test if sortest path from node A to node B matches the correct value
+
+#### usage:
+```cmd
+> python graph_algo_unittest.py -v
+```
+
+#### Expected UnitTest Output
+
+```cmd
+testEdges (__main__.GraphAlgoUnitTests) ... ok
+testNodes (__main__.GraphAlgoUnitTests) ... ok
+testPath (__main__.GraphAlgoUnitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK
+```
+
