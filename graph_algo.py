@@ -1,4 +1,4 @@
-# Graph Algorithms using Python Networkx
+# Graph Algorithms using Python Networkx library
 # Application Structures, Assignment 1, Semester A
 # Authors: Dudu Bistrov, Adiel Amshalom, Moshe Margaliot
 # 21, November 2016
@@ -8,12 +8,17 @@ import time
 
 
 class grpahAlgo:
-
     G = ''
     ec = None
 
     def __init__(self):
         self.G = nx.Graph()
+
+    # read the file and initiales the Graph
+    # the file format is givven as:
+    # Nodes
+    # Edges
+    # source destination weight
 
     def init_graph_from_file(self,file):
 
@@ -36,6 +41,9 @@ class grpahAlgo:
 
         return self.G
 
+
+
+    # print all Outputs
     def test_graph(self,file,uw):
 
         start = time.clock()
@@ -76,20 +84,13 @@ class grpahAlgo:
                 for list in orig_list:
                     self.G.add_weighted_edges_from([(int(list[0]), int(list[1]), float(list[2])), ])
 
-
-    def get_blacklist_graph(self,bl_list):
-        bl_G=nx.Graph(self.G);
-
-        for item in bl_list:
-            bl_G.remove_node(int(item))
-
-        return bl_G
-
+    # calculate the all pairs and put it at array
     def set_ec(self):
         start = time.clock()
         self.ec = nx.eccentricity(self.G, sp=nx.all_pairs_dijkstra_path_length(self.G))
         print str(time.clock()-start)
 
+    # get minimal path
     def get_path_length(self,_source,_dest):
         return nx.dijkstra_path_length(self.G, source=int(_source), target=int(_dest), weight="weight")
 
@@ -114,6 +115,10 @@ class grpahAlgo:
         else:
             return nx.radius(self.G,self.ec)
 
+    # Check if graph upholds the Triangle inequality condition
+    # return True if all triangles upholds the Triangle inequality condition
+    # otherwise return False
+
     def triangle_check(self):
         triangle = [circle for circle in nx.cycle_basis(self.G) if len(circle)==3]
         for item in triangle:
@@ -124,6 +129,7 @@ class grpahAlgo:
             if ((a>b+c) or (b>a+c) or (c>a+b)):
                 return False
         return True
+
 
     def print_graph(self):
         for n, nbrs in self.G.adjacency_iter():
