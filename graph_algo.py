@@ -66,8 +66,7 @@ class grpahAlgo:
                        ", Runtime:" + str(time.clock()-start))
 
             elif (int(line_args[2]) == 0):
-                print ("%s %.2f" % (line.strip('\n'), self.get_
-                                    _length(line_args[0], line_args[1])))
+                print ("%s %.2f" % (line.strip('\n'), self.get__length(line_args[0], line_args[1])))
 
             elif (int(line_args[2]) > 0):
                 bl_list = line_args[3:]
