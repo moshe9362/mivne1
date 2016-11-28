@@ -66,7 +66,8 @@ class grpahAlgo:
                        ", Runtime:" + str(time.clock()-start))
 
             elif (int(line_args[2]) == 0):
-                print ("%s %.2f" % (line.strip('\n'), self.get_path_length(line_args[0], line_args[1])))
+                print ("%s %.2f" % (line.strip('\n'), self.get_
+                                    _length(line_args[0], line_args[1])))
 
             elif (int(line_args[2]) > 0):
                 bl_list = line_args[3:]
@@ -92,7 +93,7 @@ class grpahAlgo:
 
     # get minimal path
     def get_path_length(self,_source,_dest):
-        return nx.dijkstra_path_length(self.G, source=int(_source), target=int(_dest), weight="weight")
+        return nx.dijkstra_path(self.G, source=int(_source), target=int(_dest), weight="weight")
 
     def get_path(self,_source,_dest):
         return nx.dijkstra_path(self.G, source=int(_source), target=int(_dest), weight="weight")
